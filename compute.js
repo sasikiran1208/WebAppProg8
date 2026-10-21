@@ -5,6 +5,7 @@ const hostname = process.env.hostname || '127.0.0.1'    //get our ip address fro
 const port = process.env.port || 3001               //and the port
 
 const server = http.createServer((req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8000')
   console.log("Request received")
   console.log(req.url)
 

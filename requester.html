@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Server Computation</title>
+</head>
+<body>
+
+    <h1>Sasi Kiran Kodali uses a fetch request</h1>
+
+    <label>Enter X:</label>
+    <input type="number" id="x">
+    <br><br>
+
+    <label>Enter Y:</label>
+    <input type="number" id="y">
+    <br><br>
+
+    <button onclick="calculate()">
+        Invoke computation on Server
+    </button>
+
+    <h3>Result:</h3>
+    <div id="result"></div>
+
+    <script>
+        function calculate() {
+            const x = document.getElementById("x").value;
+            const y = document.getElementById("y").value;
+
+            const url = `http://127.0.0.1:3001/?x=${encodeURIComponent(x)}&y=${encodeURIComponent(y)}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Server error");
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    document.getElementById("result").innerHTML = text;
+                })
+                .catch(error => {
+                    document.getElementById("result").textContent =
+                        "Error: " + error.message;
+                });
+        }
+    </script>
+
+</body>
+</html>
